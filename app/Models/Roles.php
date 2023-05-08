@@ -12,11 +12,11 @@ class Roles extends Model
 
     protected $fillable = [
         'name',
-        'descripstion'
+        'description'
     ];
 
     public function user_roles()
     {
-        return $this->hasOne(UserRoles::class, 'id', 'id_role');
+        return $this->hasMany(UserRoles::class, 'id', 'id_role');
     }
 }

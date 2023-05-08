@@ -41,7 +41,7 @@ class UserController extends Controller
             'password' =>Hash::make($request->password)
         ]);
         if ($user) {
-            return redirect()->route('user.login')->with('sucesso', 'Cadastro efetuado com sucesso');
+            return redirect()->route('login')->with('sucesso', 'Cadastro efetuado com sucesso');
         }
     }
     public function authenticade(Request $request)
