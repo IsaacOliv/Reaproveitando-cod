@@ -258,10 +258,12 @@
 
             
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="#" >
-                <i class="bi bi-box-arrow-right"></i>
-                <span>logout</span>
-              </a>
+              <form action="{{route('logout')}}" method="get">
+                <button class="dropdown-item d-flex align-items-center" >
+                  <i class="bi bi-box-arrow-right"></i>
+                  <span>logout</span>
+                </button>
+              </form>
             </li>
 
           </ul><!-- End Profile Dropdown Items -->
@@ -399,16 +401,16 @@
       </li><!-- End Register Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{route('user.login')}}">
+        <a class="nav-link collapsed" href="{{route('login')}}">
           <i class="bi bi-box-arrow-in-right"></i>
           <span>Login</span>
         </a>
       </li><!-- End Login Page Nav -->
-      @if ()
+      
       <form action="{{route('logout')}}" method="get">
         <button type="submit">Sair</button>
       </form><!-- End Error 404 Page Nav -->
-      @endif
+      
 
 
       <li class="nav-item">

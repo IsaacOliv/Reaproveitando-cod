@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/login', [UserController::class, 'login'])->name('user.login');
+Route::get('/login', [UserController::class, 'login'])->name('login');
 Route::post('/authenticade', [UserController::class, 'authenticade'])->name('user.authenticade');
 Route::controller(UserController::class)->prefix('user')->group(function () {
     Route::get('/cadastro', 'create')->name('user.create');
