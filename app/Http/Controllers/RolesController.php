@@ -34,9 +34,19 @@ class RolesController extends Controller
         }
         return redirect()->back()->with('falha', 'Falha ao deletar');
     }
-    public function edit()
+    public function edit($id)
     {
-        return view('roles.edit');
+        $role = Roles::find($id);
+        return view('roles.edit', compact('role'));
+    }
+    public function update(Request $request, $id)
+    {
+        $role = Roles::find($id);
+
+        $role->update($request->all());
+
+        return redirect()->route('roles.show');
+
     }
 
 }

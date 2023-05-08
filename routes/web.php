@@ -27,7 +27,8 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
         Route::post('/create', 'store')->name('roles.store');
         Route::get('/roles', 'show')->name('roles.show');
         Route::delete('/roles/{id}', 'destroy')->name('roles.destroy');
-        Route::PUT('/edit/{id}', 'edit')->name('roles.edit');
+        Route::get('/edit/{id}', 'edit')->name('roles.edit');
+        Route::put('/edit/{id}', 'update')->name('roles.update');
     });
 
 });
