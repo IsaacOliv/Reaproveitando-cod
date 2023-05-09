@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -13,20 +14,18 @@ class UserController extends Controller
      * Display a listing of the resource.
      */
 
-     public function login()
-     {
+    public function login()
+    {
         return view('users.login');
-     }
+    }
     public function index()
     {
-
     }
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        
         return view('users.cadastro');
     }
 
@@ -38,7 +37,7 @@ class UserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' =>Hash::make($request->password)
+            'password' => Hash::make($request->password)
         ]);
         if ($user) {
             return redirect()->route('login')->with('sucesso', 'Cadastro efetuado com sucesso');
@@ -50,10 +49,9 @@ class UserController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
-       
-        if (Auth::attempt($credentials))
-        {
-            
+
+        if (Auth::attempt($credentials)) {
+
             $request->session();
 
             return redirect()->route('index');
@@ -67,9 +65,11 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function logout()
+    public function logout(Request $request)
     {
+        $request->session()->flush();
         Auth::logout();
+
         return redirect()->back();
     }
 

@@ -2,6 +2,15 @@
 
 @section('conteudo')
     
+<style>
+    .ls{
+        position: absolute;
+        left: 66%;
+    }
+</style>
+
+
+
 <section class="section">
     <div class="row">
         <div class="col-lg-12">
@@ -17,7 +26,7 @@
                                 <th scope="col">#</th>
                                 <th scope="col">nome</th>
                                 <th scope="col">Descrição</th>
-                                <th scope="col">ação</th>
+                                <th scope="col">ações</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -27,7 +36,7 @@
                                     <th>{{ $role->name }}</th>
                                     <th>{{ $role->description }}</th>
                                     <td>
-                                        <a class="btn btn-warning" href="{{route('roles.edit', $role->id)}}">Editar</a>
+                                        <a class="btn btn-warning ls" href="{{route('roles.edit', $role->id)}}">Editar</a>
                                         <form action="{{route('roles.destroy', $role->id)}}" method="POST">
                                             @csrf
                                             @method('delete')

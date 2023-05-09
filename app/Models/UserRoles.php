@@ -15,14 +15,13 @@ class UserRoles extends Model
     ];
 
 
-    public function user()
+    public function users()
     {
-        return $this->belongsToMany(User::class, 'id_user', 'id');
+        return $this->hasMany(User::class);
     }
-    public function role()
+    public function roles()
     {
-        return $this->belongsToMany(Roles::class, 'id_role', 'id');
+        return $this->hasMany(Roles::class);
     }
-
 
 }

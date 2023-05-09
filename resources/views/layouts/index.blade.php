@@ -10,8 +10,8 @@
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="{{asset('assets/img/favicon.png') }}" rel="icon">
-    <link href="{{asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+    <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
+    <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -31,7 +31,7 @@
     <link href="{{ asset('assets/vendor/simple-datatables/style.css') }}" rel="stylesheet">
 
 
-    <link href="{{ asset('assets/css/style.css')}}" rel="stylesheet">
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
 
 
 </head>
@@ -41,8 +41,8 @@
     <header id="header" class="header fixed-top d-flex align-items-center">
 
         <div class="d-flex align-items-center justify-content-between">
-            <a href="index.html" class="logo d-flex align-items-center">
-                <img src="{{asset('assets/img/logo.png')}}" alt="">
+            <a href="{{ route('index') }}" class="logo d-flex align-items-center">
+                <img src="{{ asset('assets/img/logo.png') }}" alt="">
                 <span class="d-none d-lg-block">NiceAdmin</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -62,14 +62,16 @@
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
                         data-bs-toggle="dropdown">
-                        <img src="{{asset('assets/img/profile-img.jpg')}}" alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+                        <img src="{{ asset('assets/img/profile-img.jpg') }}" alt="Profile" class="rounded-circle">
+                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->name }}</span>
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6>Kevin Anderson</h6>
-                            <span>Web Designer</span>
+                            <h6>{{ $user->name }}</h6>
+                            @foreach ($user->roles as $item)
+                               | {{$item->name}} |
+                            @endforeach
                         </li>
                         <li>
                             <hr class="dropdown-divider">
@@ -115,7 +117,9 @@
                             </form>
                         </li>
 
-                    </ul><!-- End Profile Dropdown Items -->
+                    </ul>
+
+                    <!-- End Profile Dropdown Items -->
 
                 </li><!-- End Profile Nav -->
 
@@ -130,7 +134,7 @@
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
-                <a class="nav-link " href="{{route('index')}}">
+                <a class="nav-link " href="{{ route('index') }}">
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
@@ -144,12 +148,17 @@
                 <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
                         <a href="{{ route('roles.create') }}">
-                            <i class="bi bi-circle"></i><span>Criar Tabelas</span>
+                            <i class="bi bi-circle"></i><span>Criar regras</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('roles.show') }}">
-                            <i class="bi bi-circle"></i><span>Ver Tables</span>
+                            <i class="bi bi-circle"></i><span>Ver regras</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('roles.add') }}">
+                            <i class="bi bi-circle"></i><span>Vincular regras</span>
                         </a>
                     </li>
                 </ul>
@@ -179,7 +188,7 @@
         <section class="section dashboard">
             @yield('conteudo')
         </section>
-    </main><!-- End #main -->    
+    </main><!-- End #main -->
 
     <!-- Vendor JS Files -->
     <script src="{{ asset('assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
@@ -192,7 +201,7 @@
     <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
 
     <!-- Template Main JS File -->
-    <script src="{{asset('assets/js/main.js')}}"></script>
+    <script src="{{ asset('assets/js/main.js') }}"></script>
 
 </body>
 

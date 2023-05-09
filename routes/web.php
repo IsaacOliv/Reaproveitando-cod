@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserRolesController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -30,6 +31,8 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
         Route::get('/edit/{id}', 'edit')->name('roles.edit');
         Route::put('/edit/{id}', 'update')->name('roles.update');
     });
-
+    
+    Route::get('/index/roles/add', [UserRolesController::class, 'add'])->name('roles.add');
+    Route::post('/index/roles/add', [UserRolesController::class, 'userRole'])->name('user.role');
 });
 
