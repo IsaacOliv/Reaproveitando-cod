@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\IndexController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserRolesController;
@@ -20,8 +20,15 @@ Route::controller(UserController::class)->prefix('user')->group(function () {
 
 Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::get('/logout', [UserController::class, 'logout'])->name('logout');
-    
-    Route::get('/index',[RolesController::class, 'index'])->name('index');
+
+    Route::get('/index', [IndexController::class, 'index'])->name('index');
+
+    Route::controller(UserController::class)->prefix('index')->group(function () {
+        Route::get('/users', 'show')->name('users.show');
+        Route::delete('/users/destroy{id}', 'destroy')->name('users.destroy');
+    });
+
+
 
     Route::controller(RolesController::class)->prefix('index')->group(function () {
         Route::get('/create', 'create')->name('roles.create');
@@ -31,8 +38,7 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
         Route::get('/edit/{id}', 'edit')->name('roles.edit');
         Route::put('/edit/{id}', 'update')->name('roles.update');
     });
-    
+
     Route::get('/index/roles/add', [UserRolesController::class, 'add'])->name('roles.add');
     Route::post('/index/roles/add', [UserRolesController::class, 'userRole'])->name('user.role');
 });
-

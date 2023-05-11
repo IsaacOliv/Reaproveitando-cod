@@ -1,67 +1,52 @@
 @extends('layouts.index')
 
 @section('conteudo')
-<div class="card">
-    <div class="card-body pb-0">
-      <h5 class="card-title">Website Traffic <span>| Today</span></h5>
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
 
-      <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Datatables</h5>
 
-      <script>
-        document.addEventListener("DOMContentLoaded", () => {
-          echarts.init(document.querySelector("#trafficChart")).setOption({
-            tooltip: {
-              trigger: 'item'
-            },
-            legend: {
-              top: '5%',
-              left: 'center'
-            },
-            series: [{
-              name: 'Access From',
-              type: 'pie',
-              radius: ['40%', '70%'],
-              avoidLabelOverlap: false,
-              label: {
-                show: false,
-                position: 'center'
-              },
-              emphasis: {
-                label: {
-                  show: true,
-                  fontSize: '18',
-                  fontWeight: 'bold'
-                }
-              },
-              labelLine: {
-                show: false
-              },
-              data: [{
-                  value: 1048,
-                  name: 'Search Engine'
-                },
-                {
-                  value: 735,
-                  name: 'Direct'
-                },
-                {
-                  value: 580,
-                  name: 'Email'
-                },
-                {
-                  value: 484,
-                  name: 'Union Ads'
-                },
-                {
-                  value: 300,
-                  name: 'Video Ads'
-                }
-              ]
-            }]
-          });
-        });
-      </script>
+                        <!-- Table with stripped rows -->
+                        <table class="table datatable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Usuarios</th>
+                                    <th scope="col">Regra</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($usuarios as $usuario)
+                                    <tr>
+                                        <th>
+                                           {{ $usuario->name }}
+                                        </th>
+                                        <th>
+                                            @foreach ($usuario->roles as $role)
+                                                @if ($role->name === 'Admin')
+                                                    <span class="badge text-bg-success">{{ $role->name }}</span>
+                                                @else
+                                                    <span class="badge text-bg-info">{{ $role->name }}</span>
+                                                @endif
+                                            @endforeach
+                                        </th>
 
-    </div>
-  </div>
+ 
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <!-- End Table with stripped rows -->
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
 @endsection
+
+

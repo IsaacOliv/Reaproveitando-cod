@@ -48,12 +48,12 @@
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
 
-        <div class="search-bar">
+        {{-- <div class="search-bar">
             <form class="search-form d-flex align-items-center" method="POST" action="#">
                 <input type="text" name="query" placeholder="Search" title="Enter search keyword">
                 <button type="submit" title="Search"><i class="bi bi-search"></i></button>
             </form>
-        </div><!-- End Search Bar -->
+        </div>              <!-- End Search Bar --> --}}
 
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
@@ -69,8 +69,13 @@
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
                             <h6>{{ $user->name }}</h6>
+
+                            @if ($user->roles->isEmpty())
+                                |Regra nao definida|
+                            @endif
+
                             @foreach ($user->roles as $item)
-                               | {{$item->name}} |
+                                | {{ $item->name }} |
                             @endforeach
                         </li>
                         <li>
@@ -107,7 +112,6 @@
                             <hr class="dropdown-divider">
                         </li>
 
-
                         <li>
                             <form action="{{ route('logout') }}" method="get">
                                 <button class="dropdown-item d-flex align-items-center">
@@ -116,7 +120,6 @@
                                 </button>
                             </form>
                         </li>
-
                     </ul>
 
                     <!-- End Profile Dropdown Items -->
@@ -146,23 +149,44 @@
                         class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a href="{{ route('roles.create') }}">
-                            <i class="bi bi-circle"></i><span>Criar regras</span>
-                        </a>
-                    </li>
+
                     <li>
                         <a href="{{ route('roles.show') }}">
                             <i class="bi bi-circle"></i><span>Ver regras</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="{{ route('roles.add') }}">
-                            <i class="bi bi-circle"></i><span>Vincular regras</span>
-                        </a>
-                    </li>
                 </ul>
             </li><!-- End Tables Nav -->
+
+
+            @foreach ($user->roles as $item)
+                @if ($item->name === 'Admin')
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse"
+                            href="#">
+                            <i class="bi bi-journal-text"></i><span>Gerenciar usuarios</span><i
+                                class="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                            <li>
+                                <a href="{{ route('users.show') }}">
+                                    <i class="bi bi-circle"></i><span>Ver usuarios</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('roles.add') }}">
+                                    <i class="bi bi-circle"></i><span>Vincular regras</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('roles.create') }}">
+                                    <i class="bi bi-circle"></i><span>Criar regras</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
+            @endforeach
 
             <li class="nav-heading">Funções</li>
 

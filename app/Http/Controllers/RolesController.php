@@ -10,18 +10,25 @@ use Illuminate\Http\Request;
 
 class RolesController extends Controller
 {
-    public function index()
+    public function create()
     {
         if (Auth::check()) {
             $user = Auth::user();
             $user = User::with('roles')->find($user->id);
-            // dd($user);
-            return view('index', compact('user'));
+
+            if ($user->roles->count() < 1) {
+                return redirect()->back();
+            } else {
+                foreach ($user->roles as $item) {
+                    if ($item->name === 'Admin') {
+                        return view('roles.create', compact('user'));
+                        
+                    } else {
+                        return redirect()->back();
+                    }
+                }
+            }
         }
-    }
-    public function create()
-    {
-        return view('roles.create');
     }
     public function store(Request $request)
     {
@@ -30,8 +37,13 @@ class RolesController extends Controller
     }
     public function show()
     {
-        $roles = Roles::all();
-        return view('roles.show', compact('roles'));
+        if (Auth::check()) {
+            $user = Auth::user();
+            $user = User::with('roles')->find($user->id);
+            $roles = Roles::all();
+            // dd($user);
+            return view('roles.show', compact('roles', 'user'));
+        }
     }
     public function destroy($id)
     {
@@ -44,8 +56,13 @@ class RolesController extends Controller
     }
     public function edit($id)
     {
-        $role = Roles::find($id);
-        return view('roles.edit', compact('role'));
+        if (Auth::check()) {
+            $user = Auth::user();
+            $user = User::with('roles')->find($user->id);
+            // dd($user);
+            $role = Roles::find($id);
+            return view('roles.edit', compact('role', 'user'));
+        }
     }
     public function update(Request $request, $id)
     {

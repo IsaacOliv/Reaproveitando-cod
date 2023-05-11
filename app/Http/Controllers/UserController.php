@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -16,22 +15,19 @@ class UserController extends Controller
 
     public function login()
     {
+        if (Auth::user()) {
+            return redirect()->back();
+        }
         return view('users.login');
     }
-    public function index()
-    {
-    }
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
+
+        if (Auth::user()) {
+            return redirect()->back();
+        }
         return view('users.cadastro');
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $user = User::create([
@@ -62,9 +58,6 @@ class UserController extends Controller
         ])->onlyInput('email');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function logout(Request $request)
     {
         $request->session()->flush();
@@ -73,27 +66,33 @@ class UserController extends Controller
         return redirect()->back();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function show(Request $request)
     {
-        //
-    }
+        $users = User::all();
+        $auth = Auth::user();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
+        $user = Auth::user();
+        $user = User::with('roles')->find($user->id);
+        $usuarios = User::with('roles')->get();
+        if ($user->roles->count() < 1) {
+            return redirect()->back();
+        } else {
+            foreach ($user->roles as $item) {
+                if ($item->name === 'Admin') {
+                    
+                    return view('users.show', compact('users', 'auth'));
+                } else {
+                    return redirect()->back();
+                }
+            }
+        }
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        $user = User::find($id);
+        if ($user) {
+            $user->delete();
+            return redirect()->back();
+        }
     }
 }
