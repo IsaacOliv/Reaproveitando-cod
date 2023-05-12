@@ -68,11 +68,11 @@ class UserController extends Controller
 
     public function show(Request $request)
     {
-        $users = User::all();
         $auth = Auth::user();
 
-        $user = Auth::user();
+        $user = $auth;
         $user = User::with('roles')->find($user->id);
+
         $usuarios = User::with('roles')->get();
         if ($user->roles->count() < 1) {
             return redirect()->back();
@@ -80,7 +80,7 @@ class UserController extends Controller
             foreach ($user->roles as $item) {
                 if ($item->name === 'Admin') {
                     
-                    return view('users.show', compact('users', 'auth'));
+                    return view('users.show', compact('user','usuarios', 'auth'));
                 } else {
                     return redirect()->back();
                 }

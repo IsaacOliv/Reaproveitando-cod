@@ -17,11 +17,11 @@ class UserRoles extends Model
 
     public function users()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(User::class);    //User_roles<-Users
     }
     public function roles()
     {
-        return $this->hasMany(Roles::class);
+        return $this->hasMany(Roles::class);    //User_roles<-Roles
     }
 
 }

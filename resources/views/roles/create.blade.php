@@ -2,31 +2,7 @@
 
 @section('conteudo')
     <style>
-        .divcenter {
-            width: 500px;
-            margin: 0 auto;
-        }
 
-        .divcenter1 {
-
-            width: 100%;
-            display: flex;
-        }
-
-
-        .glow-on-hover {
-            width: 200px;
-            height: 50px;
-            border: none;
-            outline: none;
-            color: #fff;
-            background: blue;
-            cursor: pointer;
-            position: relative;
-            margin: 0 auto;
-            z-index: 0;
-            border-radius: 10px;
-        }
     </style>
 
 

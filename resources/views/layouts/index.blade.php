@@ -158,7 +158,7 @@
                 </ul>
             </li><!-- End Tables Nav -->
 
-
+            {{-- Foreach para definir que apenas o admin possa ver essa parte --}}
             @foreach ($user->roles as $item)
                 @if ($item->name === 'Admin')
                     <li class="nav-item">
@@ -187,6 +187,9 @@
                     </li>
                 @endif
             @endforeach
+            {{-- Foreach para definir que apenas o admin possa ver essa parte --}}
+
+
 
             <li class="nav-heading">Funções</li>
 

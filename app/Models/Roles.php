@@ -17,6 +17,6 @@ class Roles extends Model
 
     public function user_roles()
     {
-        return $this->belongsTo(UserRoles::class, 'id_role');
+        return $this->belongsTo(UserRoles::class, 'id_role'); //Roles->User_roles
     }
 }

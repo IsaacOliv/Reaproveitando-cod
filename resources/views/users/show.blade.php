@@ -27,26 +27,23 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($users as $user)
+                                @foreach ($usuarios as $usuario)
                                     <tr>
-                                        <th>{{ $user->id }}</th>
-                                        <th>{{ $user->name }}</th>
-
-                                        @if ($user->roles->isEmpty())
-                                            <th><span class="badge text-bg-secondary">None</span></th>
-                                        @else
-                                            <th>
-                                                @foreach ($user->roles as $item)
-                                                    @if ($item->name === 'Admin')
+                                        <th>{{ $usuario->id }}</th>
+                                        <th>{{ $usuario->name }}</th>
+                                        <th>
+                                            @foreach ($usuario->roles as $item)
+                                                @if ($usuario->roles->isEmpty())
+                                                    <span class="badge text-bg-secondary">None</span>
+                                                    @elseif ($item->name === 'Admin')
                                                         <span class="badge text-bg-success">{{ $item->name }}</span>
                                                     @else
                                                         <span class="badge text-bg-info">{{ $item->name }}</span>
                                                     @endif
-                                                @endforeach
-                                            </th>
-                                        @endif
+                                            @endforeach
+                                        </th>
                                         <td>
-                                            @if ($auth != $user)
+                                            @if ($auth != $usuarios)
                                                 <form action="{{ route('users.destroy', $user->id) }}" method="POST">
                                                     @csrf
                                                     @method('delete')

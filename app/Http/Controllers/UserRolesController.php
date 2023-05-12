@@ -22,7 +22,7 @@ class UserRolesController extends Controller
             $roles = Roles::get();
 
 
-            $usuarios = User::with('roles')->get();
+
             if ($user->roles->count() < 1) {
                 return redirect()->back();
             } else {

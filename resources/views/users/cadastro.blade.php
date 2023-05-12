@@ -22,7 +22,7 @@
                   <p class="text-center small">Enter your personal details to create account</p>
                 </div>
 
-                <form class="row g-3 needs-validation" novalidate method="POST" action="{{route('user.store')}}">
+                <form class="row g-3 needs-validation"  method="POST" action="{{route('user.store')}}">
                   @csrf
                   <div class="col-12">
                     <label for="name" class="form-label">Your Name</label>
@@ -34,7 +34,7 @@
                     <label for="yourUsername" class="form-label">email</label>
                     <div class="input-group has-validation">
                       <span class="input-group-text" id="inputGroupPrepend">@</span>
-                      <input type="text" name="email" class="form-control" id="email" required>
+                      <input type="email" name="email" class="form-control" id="email" required>
                       <div class="invalid-feedback">Please choose a email.</div>
                     </div>
                   </div>
@@ -48,7 +48,7 @@
                   <div class="col-12">
                     <div class="form-check">
                       <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
-                      <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
+                      <label class="form-check-label" required for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
                       <div class="invalid-feedback">You must agree before submitting.</div>
                     </div>
                   </div>
